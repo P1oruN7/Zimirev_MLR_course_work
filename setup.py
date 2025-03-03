@@ -75,7 +75,14 @@ def activate_venv():
 
 def install_requirements(python_cmd):
     """Устанавливает зависимости из requirements.txt, если такой файл найден."""
-    req_file = "requirements.txt"
+    target_dir = "Zimirev_MLR_course_work"
+    current_dir = os.path.basename(os.getcwd())
+
+    if current_dir == target_dir:
+        req_file = "requirements.txt"
+    else:
+        req_file = os.path.join(target_dir, "requirements.txt")
+
     if os.path.exists(req_file):
         print("Устанавливаем зависимости из requirements.txt...")
         subprocess.check_call([python_cmd, "-m", "pip", "install", "-r", req_file],
@@ -84,13 +91,21 @@ def install_requirements(python_cmd):
         print("Файл requirements.txt не найден, пропускаем установку зависимостей.")
 
 def install_fast_kan(python_cmd):
+
     """
     Устанавливает локальную библиотеку fast-kan из директории fast-kan.
     Эквивалентно выполнению:
         cd fast-kan
         pip install .
     """
-    fast_kan_dir = "fast-kan"
+    target_dir = "Zimirev_MLR_course_work"
+    current_dir = os.path.basename(os.getcwd())
+
+    if current_dir == target_dir:
+        fast_kan_dir = "fast-kan"
+    else:
+        fast_kan_dir = os.path.join(target_dir, "fast-kan")
+    
     if os.path.exists(fast_kan_dir):
         print("Устанавливаем библиотеку fast-kan из локальной директории...")
         try:
