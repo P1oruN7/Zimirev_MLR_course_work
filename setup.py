@@ -35,15 +35,17 @@ def get_python39_command():
         sys.exit("Установка прервана пользователем.")
 
 def create_virtualenv(python_cmd):
-    """Создаёт виртуальное окружение в папке 'venv'."""
-    venv_dir = "venv"
-    if os.path.exists(venv_dir):
-        print(f"Виртуальное окружение '{venv_dir}' уже существует. Пропускаем создание.")
+    # костыль, чтобы работало и через git clone, и через zip
+    """Создаёт виртуальное окружение в папке 'venv' внутри Zimirev_MLR_course_work, если оно отсутствует."""
+    target_dir = "Zimirev_MLR_course_work"
+    current_dir = os.path.basename(os.getcwd())
+
+    if current_dir == target_dir:
+        venv_dir = "venv"
     else:
-        print("Создаём виртуальное окружение...")
-        cmd = python_cmd + ["-m", "venv", venv_dir]
-        subprocess.check_call(cmd)
-        print("Виртуальное окружение создано.")
+        venv_dir = os.path.join(target_dir, "venv")
+        os.makedirs(target_dir, exist_ok=True)
+
 
 def activate_venv():
     """
