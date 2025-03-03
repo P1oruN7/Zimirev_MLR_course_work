@@ -35,26 +35,15 @@ def get_python39_command():
         sys.exit("Установка прервана пользователем.")
 
 def create_virtualenv(python_cmd):
-    """Создаёт виртуальное окружение в папке 'venv' внутри Zimirev_MLR_course_work, если оно отсутствует."""
-    target_dir = "Zimirev_MLR_course_work"
-    current_dir = os.path.basename(os.getcwd())
-
-    if current_dir == target_dir:
-        venv_dir = "venv"
-    else:
-        venv_dir = os.path.join(target_dir, "venv")
-        os.makedirs(target_dir, exist_ok=True)
-
+    """Создаёт виртуальное окружение в папке 'venv'."""
+    venv_dir = "venv"
     if os.path.exists(venv_dir):
         print(f"Виртуальное окружение '{venv_dir}' уже существует. Пропускаем создание.")
     else:
-        print(f"Создаём виртуальное окружение в '{venv_dir}'...")
+        print("Создаём виртуальное окружение...")
         cmd = python_cmd + ["-m", "venv", venv_dir]
         subprocess.check_call(cmd)
         print("Виртуальное окружение создано.")
-
-    return venv_dir
-
 
 def activate_venv():
     """
@@ -75,14 +64,7 @@ def activate_venv():
 
 def install_requirements(python_cmd):
     """Устанавливает зависимости из requirements.txt, если такой файл найден."""
-    target_dir = "Zimirev_MLR_course_work"
-    current_dir = os.path.basename(os.getcwd())
-
-    if current_dir == target_dir:
-        req_file = "requirements.txt"
-    else:
-        req_file = os.path.join(target_dir, "requirements.txt")
-
+    req_file = "requirements.txt"
     if os.path.exists(req_file):
         print("Устанавливаем зависимости из requirements.txt...")
         subprocess.check_call([python_cmd, "-m", "pip", "install", "-r", req_file],
@@ -91,21 +73,13 @@ def install_requirements(python_cmd):
         print("Файл requirements.txt не найден, пропускаем установку зависимостей.")
 
 def install_fast_kan(python_cmd):
-
     """
     Устанавливает локальную библиотеку fast-kan из директории fast-kan.
     Эквивалентно выполнению:
         cd fast-kan
         pip install .
     """
-    target_dir = "Zimirev_MLR_course_work"
-    current_dir = os.path.basename(os.getcwd())
-
-    if current_dir == target_dir:
-        fast_kan_dir = "fast-kan"
-    else:
-        fast_kan_dir = os.path.join(target_dir, "fast-kan")
-    
+    fast_kan_dir = "fast-kan"
     if os.path.exists(fast_kan_dir):
         print("Устанавливаем библиотеку fast-kan из локальной директории...")
         try:
@@ -131,4 +105,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
