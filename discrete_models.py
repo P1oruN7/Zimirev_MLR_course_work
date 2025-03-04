@@ -98,43 +98,43 @@ def flappyBird_kan(state_dim, n_actions):
 
 
 "------------------------------Breakout-----------------------------------------"
-class breakout_mlp(nn.Module):                                      # params 182148
+class breakout_mlp(nn.Module):                                      # params 231428
     def __init__(self, state_dim, n_actions):
         super(breakout_mlp, self).__init__()
         self.net = nn.Sequential(
-            nn.Linear(state_dim, 1024),
+            nn.Linear(state_dim, 256),
             nn.ReLU(),
-            nn.Linear(1024, 512),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(512, 256),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(256, 128),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(128, n_actions)
+            nn.Linear(256, n_actions)
         )
     def forward(self, x):
         x = x.view(x.size(0), -1)
         return self.net(x)
 
 def breakout_kan(state_dim, n_actions):
-    return FastKAN([state_dim, 104, 104, 88, 64,  n_actions], num_grids=8)  # params 182850
+    return FastKAN([state_dim, 85, 85, 84,  n_actions], num_grids=8)  # params 231283
 
 
 
 "------------------------------SpaceInvaders-----------------------------------------"
-class spaceInvaders_mlp(nn.Module):                                        # params 182662
+class spaceInvaders_mlp(nn.Module):                                        # params 231942
     def __init__(self, state_dim, n_actions):
         super(spaceInvaders_mlp, self).__init__()
         self.net = nn.Sequential(
-            nn.Linear(state_dim, 1024),
+            nn.Linear(state_dim, 256),
             nn.ReLU(),
-            nn.Linear(1024, 512),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(512, 256),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(256, 128),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(128, n_actions)
+            nn.Linear(256, n_actions)
         )
 
     def forward(self, x):
@@ -142,7 +142,7 @@ class spaceInvaders_mlp(nn.Module):                                        # par
         return self.net(x)
 
 def spaceInvaders_kan(state_dim, n_actions):
-    return FastKAN([state_dim, 128, 104, 88, 64,  n_actions], num_grids=8)    # params 182417
+    return FastKAN([state_dim, 85, 84, 84, n_actions], num_grids=8)    # params 231273
 
 
 
